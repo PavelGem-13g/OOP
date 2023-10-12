@@ -6,4 +6,7 @@ set(CMAKE_CXX_STANDARD 14)
 add_executable(
         lab1
         main.cpp
-        Vector3.cpp Vector3.h Cabinet.cpp Cabinet.h)
+        Vector3.cpp Vector3.h
+        Cabinet.cpp Cabinet.h
+        Appliance.cpp Appliance.h
+        Entity.cpp Entity.h)

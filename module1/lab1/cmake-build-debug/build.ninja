@@ -64,6 +64,18 @@ build CMakeFiles/lab1.dir/Cabinet.cpp.o: CXX_COMPILER__lab1_Debug /Users/pavel/G
   OBJECT_DIR = CMakeFiles/lab1.dir
   OBJECT_FILE_DIR = CMakeFiles/lab1.dir
 
+build CMakeFiles/lab1.dir/Appliance.cpp.o: CXX_COMPILER__lab1_Debug /Users/pavel/Git/OOP/module1/lab1/Appliance.cpp || cmake_object_order_depends_target_lab1
+  DEP_FILE = CMakeFiles/lab1.dir/Appliance.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.0.sdk -std=gnu++14
+  OBJECT_DIR = CMakeFiles/lab1.dir
+  OBJECT_FILE_DIR = CMakeFiles/lab1.dir
+
+build CMakeFiles/lab1.dir/Entity.cpp.o: CXX_COMPILER__lab1_Debug /Users/pavel/Git/OOP/module1/lab1/Entity.cpp || cmake_object_order_depends_target_lab1
+  DEP_FILE = CMakeFiles/lab1.dir/Entity.cpp.o.d
+  FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.0.sdk -std=gnu++14
+  OBJECT_DIR = CMakeFiles/lab1.dir
+  OBJECT_FILE_DIR = CMakeFiles/lab1.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target lab1
@@ -72,7 +84,7 @@ build CMakeFiles/lab1.dir/Cabinet.cpp.o: CXX_COMPILER__lab1_Debug /Users/pavel/G
 #############################################
 # Link the executable lab1
 
-build lab1: CXX_EXECUTABLE_LINKER__lab1_Debug CMakeFiles/lab1.dir/main.cpp.o CMakeFiles/lab1.dir/Vector3.cpp.o CMakeFiles/lab1.dir/Cabinet.cpp.o
+build lab1: CXX_EXECUTABLE_LINKER__lab1_Debug CMakeFiles/lab1.dir/main.cpp.o CMakeFiles/lab1.dir/Vector3.cpp.o CMakeFiles/lab1.dir/Cabinet.cpp.o CMakeFiles/lab1.dir/Appliance.cpp.o CMakeFiles/lab1.dir/Entity.cpp.o
   FLAGS = -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.0.sdk
   OBJECT_DIR = CMakeFiles/lab1.dir
   POST_BUILD = :
