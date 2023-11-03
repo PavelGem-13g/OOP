@@ -9,7 +9,7 @@ public:
 
     void setSpeed(float speed);
     float getSpeed() const;
-    void setAcceleration(float acceleration);
+    void setAcceleration(float acceleration) const;
     float getAcceleration() const;
     void setAngle(float angle);
     float getAngle() const;

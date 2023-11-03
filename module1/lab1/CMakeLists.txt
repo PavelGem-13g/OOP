@@ -9,4 +9,4 @@ add_executable(
         Vector3.cpp Vector3.h
         Cabinet.cpp Cabinet.h
         Appliance.cpp Appliance.h
-        Entity.cpp Entity.h)
+        Entity.cpp Entity.h EntityType.cpp EntityType.h Plan.cpp Plan.h)

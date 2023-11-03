@@ -3,16 +3,16 @@
 
 Car::Car(float speed, float acceleration, float angle, float angular_acceleration, float y, float x)
 {
-    setSpeed(speed);
-    setAcceleration(acceleration);
-    setAngle(angle);
-    setAngular_acceleration(angular_acceleration);
-    setY(y);
-    setX(x);
+    this->m_speed = speed;
+    this->m_acceleration = acceleration;
+    this->m_angle = angle;
+    this->m_angular_acceleration = angular_acceleration;
+    this->m_y = y;
+    this->m_x = x;
 }
 
 void Car::setSpeed(float speed) {
-    if ((speed =< 1.0f*(-100)) || (speed >= 1.0f * 100) {
+    if ((speed <= 1.0f*(-100)) || (speed >= 1.0f * 100)) {
         std::cout << "Speed can't be <(-100) or >100" << std::endl;
         return;
     }
@@ -22,13 +22,9 @@ void Car::setSpeed(float speed) {
 float Car::getSpeed() const {
     return m_speed;
 }
-void Car::setAcceleration(float acceleration) {
-    if ((speed = < 1.0f * (-10)) || (speed >= 1.0f * 10) {
-        std::cout << "Speed can't be <(-10) or >10" << std::endl;
-            return;
-    }
-    m_acceleration = acceleration;
-}
+
+
+
 float Car::getAcceleration() const {
     return m_acceleration;
 }
@@ -57,4 +53,8 @@ void Car::setX(float x) {
 }
 float Car::getX() const {
     return m_x;
+}
+
+void Car::setAcceleration(float acceleration) {
+
 }

@@ -5,7 +5,7 @@
 #include <iostream>
 #include "Entity.h"
 
-const Vector3 Entity::get_position() const {
+Vector3 Entity::get_position() const {
     return position;
 }
 
@@ -13,7 +13,7 @@ void Entity::set_position(const Vector3 &value) {
     position = value;
 }
 
-const Vector3 Entity::get_size() const {
+Vector3 Entity::get_size() const {
     return size;
 }
 
@@ -42,12 +42,12 @@ Entity::Entity(const Entity &entity) {
 }
 
 
-std::string Entity::type() const {
-    return "Entity";
+EntityType Entity::type() const {
+    return EntityType::TEntity;
 }
 
-void Entity::show() {
-    std::cout<<type()<<std::endl;
+void Entity::show() const{
+    std::cout<<GetEntityTypeString(type())<<std::endl;
     std::cout<<"Position is ";
     get_position().show();
     std::cout<<std::endl;

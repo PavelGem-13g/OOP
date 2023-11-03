@@ -5,7 +5,7 @@
 #include <iostream>
 #include "Appliance.h"
 
-const std::string Appliance::get_name() const {
+std::string Appliance::get_name() const {
     return name;
 }
 
@@ -13,7 +13,7 @@ void Appliance::set_name(std::string value) {
     name = value;
 }
 
-const bool Appliance::get_state() const {
+bool Appliance::get_state() const {
     return state;
 }
 
@@ -40,11 +40,11 @@ Entity((Entity&) appliances){
     this->state = appliances.state;
 }
 
-std::string Appliance::type() const {
-    return "Appliance";
+EntityType Appliance::type() const {
+    return EntityType::TAppliance;
 }
 
-void Appliance::show() {
+void Appliance::show() const {
     Entity::show();
     std::cout<<"Name is "<<get_name()<<std::endl;
     std::cout<<"State is "<<get_state()<<std::endl;

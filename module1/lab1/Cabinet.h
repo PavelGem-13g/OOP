@@ -7,21 +7,22 @@
 
 #include "Vector3.h"
 #include "Entity.h"
+
 class Cabinet final : public Entity{
 private:
     std::string material;
 public:
-    const std::string get_material() const;
-    void set_material(std::string value);
+    std::string get_material() const;
+    void set_material(const std::string &value);
 
     Cabinet();
-    Cabinet(const Vector3 &position, const Vector3 &size, std::string material);
+    Cabinet(const Vector3 &position, const Vector3 &size, const std::string &material);
     Cabinet(const Cabinet &cabinet);
 
-    std::string type() const override;
-    void show() override;
+    EntityType type() const override;
+    void show() const override;
 
-    bool isCollision(const Entity &entity);
+    bool isCollision(const Entity &entity) override;
 };
 
 #endif //LAB1_CABINET_H

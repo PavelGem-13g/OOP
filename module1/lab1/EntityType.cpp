@@ -5,12 +5,18 @@
 #include <map>
 #include "EntityType.h"
 
+#include <string>
+
 std::string GetEntityTypeString(EntityType entityType)
 {
     std::map<EntityType, std::string> entityTypeStrings{
-            {EntityType::TEntity, "Entity 1"},
+            {EntityType::TNone, "None"},
+            {EntityType::TEntity, "Entity"},
+            {EntityType::TCabinet, "Cabinet"},
+            {EntityType::TAppliance, "Appliance"}
     };
 
     return entityTypeStrings.at(entityType);
 }
+
 

@@ -5,9 +5,31 @@
 #ifndef LAB1_PLAN_H
 #define LAB1_PLAN_H
 
+#include <iostream>
+
+#include "Vector3.h"
+#include "Entity.h"
 
 class Plan {
+protected:
 
+    Vector3 size;
+    std::vector<Entity> entities;
+
+public:
+    Vector3 get_size() const;
+    void set_size(const Vector3 &value);
+
+    Plan();
+    Plan(const Vector3 &size);
+    Plan(const Vector3 &size, const std::vector<Entity> &entities);
+    Plan(const Plan &plan);
+
+    std::vector<Entity> get_entities() const;
+    void set_entities(const std::vector<Entity> &entities);
+
+    void addEntity(const Entity &entity);
+    bool check();
 };
 
 

@@ -6,24 +6,25 @@
 #define LAB1_ENTITY_H
 
 #include "Vector3.h"
+#include "EntityType.h"
 
 class Entity {
 protected:
     Vector3 position;
     Vector3 size;
 public:
-    const Vector3 get_position() const;
+    Vector3 get_position() const;
     void set_position(const Vector3 &value);
 
-    const Vector3 get_size() const;
+    Vector3 get_size() const;
     void set_size(const Vector3 &value);
 
     Entity();
     Entity(const Vector3 &position, const Vector3 &size);
     Entity(const Entity &entity);
 
-    virtual std::string type() const;
-    virtual void show();
+    virtual EntityType type() const;
+    virtual void show() const;
 
     virtual bool isCollision(const Entity &entity);
 };
