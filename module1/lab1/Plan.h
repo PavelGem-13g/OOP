@@ -12,9 +12,8 @@
 
 class Plan {
 protected:
-
     Vector3 size;
-    std::vector<Entity> entities;
+    std::vector<Entity*> entities;
 
 public:
     Vector3 get_size() const;
@@ -22,14 +21,17 @@ public:
 
     Plan();
     Plan(const Vector3 &size);
-    Plan(const Vector3 &size, const std::vector<Entity> &entities);
+    Plan(const Vector3 &size, const std::vector<Entity*> &entities);
     Plan(const Plan &plan);
 
-    std::vector<Entity> get_entities() const;
-    void set_entities(const std::vector<Entity> &entities);
+    std::vector<Entity*> get_entities() const;
+    void set_entities(const std::vector<Entity*> &entities);
 
-    void addEntity(const Entity &entity);
+    void addEntity(Entity *entity);
+    void removeEntityByNumber(int number);
     bool check();
+
+    void show() const;
 };
 
 

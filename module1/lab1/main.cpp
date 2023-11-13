@@ -141,15 +141,15 @@ int main() {
     assert(appliance3.get_size().get_y()==appliance2.get_size().get_y());
     assert(appliance3.get_size().get_z()==appliance2.get_size().get_z());
 
-    Appliance applianceThree = Appliance(
-            Vector3(10, 10, 10),
-            Vector3(1, 1,1),
-            "Fridge",
-            false);
-
     Appliance applianceTwo = Appliance(
             Vector3(),
             Vector3(2, 2, 2),
+            "Fridge",
+            false);
+
+    Appliance applianceThree = Appliance(
+            Vector3(10, 10, 10),
+            Vector3(1, 1,1),
             "Fridge",
             false);
 
@@ -165,9 +165,9 @@ int main() {
 
     Plan plan = Plan();
 
-    plan.addEntity(one);
-    plan.addEntity(three);
-    plan.addEntity(applianceThree);
+    plan.addEntity(&one);
+    plan.addEntity(&two);
+    plan.addEntity(&applianceThree);
 
     assert(plan.get_size().get_x()==1);
     assert(plan.get_size().get_y()==1);
@@ -184,7 +184,9 @@ int main() {
 
     plan2.set_entities(plan.get_entities());
 
-    assert(plan2.get_entities().size()==3);
+    plan2.removeEntityByNumber(0);
+
+    assert(plan2.get_entities().size()==2);
 
     assert(plan.check() == false);
     assert(plan2.check() == true);
