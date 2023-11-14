@@ -11,7 +11,7 @@
 #include "Entity.h"
 
 class Plan {
-protected:
+private:
     Vector3 size;
     std::vector<Entity*> entities;
 
