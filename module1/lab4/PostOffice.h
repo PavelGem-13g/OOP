@@ -16,6 +16,8 @@ public:
 
     PostOffice();
     PostOffice(int index, int mails);
+
+    bool operator == (const PostOffice &postOffice) const;
 };
 
 

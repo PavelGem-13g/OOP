@@ -48,6 +48,10 @@ public:
         nodes.push_back(graphNode);
         costs.push_back(cost);
     }
+
+    bool operator == (const GraphNode<K, V> &graphNode){
+        return key==graphNode.key && value==graphNode.value;
+    }
 };
 
 

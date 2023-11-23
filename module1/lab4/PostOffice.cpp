@@ -21,3 +21,7 @@ PostOffice::PostOffice(int index, int mails) {
     this->index = index;
     this->mails = mails;
 }
+
+bool PostOffice::operator==(const PostOffice &postOffice) const {
+    return index==postOffice.index && mails==postOffice.mails;
+}
