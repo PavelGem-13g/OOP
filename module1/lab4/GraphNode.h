@@ -16,26 +16,39 @@ private:
     std::vector<GraphNode<K, V>> nodes;
     std::vector<int> costs;
 public:
-    const K getKey() const{
+
+    K getKey() const{
         return key;
     }
-    void setKey(K &value){
+
+    void setKey(const K &value){
         this->key = value;
     }
-    const V getValue() const{
+
+    V getValue() const{
         return value;
     }
-    void setValue(V &value){
+
+    void setValue(const V &value){
         this->value = value;
     }
 
-    GraphNode(){
-        key = nullptr;
-        value = nullptr;
+    std::vector<GraphNode<K, V>> getNodes() const{
+        return nodes;
+    }
 
-        nodes = std::vector<K>();
+    std::vector<int> getCosts() const{
+        return costs;
+    }
+
+    GraphNode(){
+        key = K();
+        value = V();
+
+        nodes = std::vector<GraphNode<K, V>>();
         costs = std::vector<int>();
     }
+
     GraphNode(const K &key, const V &value){
         this->key = key;
         this->value = value;
@@ -51,6 +64,27 @@ public:
 
     bool operator == (const GraphNode<K, V> &graphNode){
         return key==graphNode.key && value==graphNode.value;
+    }
+
+    friend std::ostream& operator<<(std::ostream &os, const GraphNode<K,V> &graphNode){
+        os << graphNode.key << ' ' << graphNode.value << ' ' << graphNode.nodes.size() << ' ';
+        for (size_t i = 0; i < graphNode.nodes.size(); ++i) {
+            os << graphNode.nodes[i] << ' ' << graphNode.costs[i] << ' ';
+        }
+        os << '\n';
+        return os;
+    }
+
+    friend  std::istream& operator>>(std::istream &is, GraphNode<K, V> &graphNode){
+        is >> graphNode.key >> graphNode.value;
+        int nodeCount;
+        is >> nodeCount;
+        graphNode.nodes.resize(nodeCount);
+        graphNode.costs.resize(nodeCount);
+        for (int i = 0; i < nodeCount; ++i) {
+            is >> graphNode.nodes[i] >> graphNode.costs[i];
+        }
+        return is;
     }
 };
 

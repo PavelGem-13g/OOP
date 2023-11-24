@@ -25,3 +25,13 @@ PostOffice::PostOffice(int index, int mails) {
 bool PostOffice::operator==(const PostOffice &postOffice) const {
     return index==postOffice.index && mails==postOffice.mails;
 }
+
+std::ostream& operator<<(std::ostream &os, const PostOffice &postOffice){
+    os << postOffice.index << ' ' << postOffice.mails << '\n';
+    return os;
+}
+
+std::istream& operator>>(std::istream &is, PostOffice &postOffice){
+    is >> postOffice.index >> postOffice.mails;
+    return is;
+}
