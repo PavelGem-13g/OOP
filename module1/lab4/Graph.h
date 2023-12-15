@@ -27,9 +27,7 @@ public:
         }
     }
 
-    ~Graph() {
-        // вектор умеет сам распоряжаться данными
-    }
+    ~Graph() = default;
 
     void clear() {
         this->nodes.clear();
@@ -109,7 +107,7 @@ public:
             }
         }
 
-        nodes.push_back(GraphNode<K, V>(key, V()));
+        add(GraphNode<K, V>(key, V()));
         return nodes.back().getValue();
     }
 
