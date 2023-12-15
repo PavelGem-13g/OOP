@@ -2,6 +2,8 @@
 // Created by Павел on 15.12.2023.
 //
 
+#include <cmath>
+
 #include "ComplexTask.h"
 
 std::vector<Task> ComplexTask::getSubtasks() const{
@@ -28,16 +30,19 @@ ComplexTask::ComplexTask(const std::string &name, int hours, int priority) : Tas
 }
 
 void ComplexTask::splitTasks() {
-    int hours = this->hours;
+    int hours = std::ceil(this->hours*0.9);
     int taskNumber = 1;
-    int threshold = 4;
+    int threshold = 5;
     while (hours > 0){
         std::string name = this->getName()+" - "+std::to_string(taskNumber);
-        Task tempTask = Task{name, taskNumber*threshold, this->getPriority()+2};
+        Task tempTask = Task{name, std::min(threshold, hours), this->getPriority()+2};
         subtasks.push_back(tempTask);
-        hours-=threshold;
+        hours-=std::min(threshold, hours);
         taskNumber+=1;
     }
+    std::string name = this->getName()+" - Collecting results";
+    Task tempTask = Task{name, static_cast<int>(std::floor(this->hours*0.1)), this->getPriority()+1};
+    subtasks.push_back(tempTask);
 }
 
 ComplexTask::ComplexTask() :Task() {

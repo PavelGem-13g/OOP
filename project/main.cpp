@@ -6,8 +6,8 @@ int main() {
     Project project = Project();
 
     Actor actor1 = Actor{"A1", 5};
-    Actor actor2 = Actor{"A2", 5};
-    Actor actor3 = Actor{"A3", 5};
+    Actor actor2 = Actor{"A2", 8};
+    Actor actor3 = Actor{"A3", 4};
 
     project.addActor(actor1);
     project.addActor(actor2);
@@ -29,12 +29,9 @@ int main() {
     project.addTask(&complexTask2);
     project.addTask(&complexTask3);
 
-    for (auto & i : project.getTasks()) {
-        i->show();
-    }
-
 
     //project.splitTasks();
-
-    //project.distributeTasks();
+    project.show();
+    project.distributeTasks();
+    project.show();
 }

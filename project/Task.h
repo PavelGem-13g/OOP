@@ -22,7 +22,7 @@ public:
 
     Task(const std::string &name, int hours, int priority);
 
-    virtual void assign() const;
+    virtual void assign();
 
     int getPriority() const;
 

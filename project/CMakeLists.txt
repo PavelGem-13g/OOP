@@ -3,4 +3,4 @@ project(project)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(project main.cpp Project.cpp Project.h Task.cpp Task.h Actor.cpp Actor.h Subtask.cpp Subtask.h TaskType.cpp TaskType.h TaskProgressType.cpp TaskProgressType.h ComplexTask.cpp ComplexTask.h)
+add_executable(project main.cpp Project.cpp Project.h Task.cpp Task.h Actor.cpp Actor.h TaskType.cpp TaskType.h TaskProgressType.cpp TaskProgressType.h ComplexTask.cpp ComplexTask.h)

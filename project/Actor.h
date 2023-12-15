@@ -17,7 +17,9 @@ public:
 
     int getHours() const;
 
-    void assignTask(const Task& task);
+    void assignTask(Task task);
+
+    void show();
 private:
     std::string name;
     int hours;

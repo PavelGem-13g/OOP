@@ -16,7 +16,11 @@ int Actor::getHours() const {
     return hours;
 }
 
-void Actor::assignTask(const Task &task) {
+void Actor::assignTask(Task task) {
     task.assign();
     hours -= task.getHours();
+}
+
+void Actor::show() {
+    std::cout<<"Name "<<name<<"\tHours "<<hours<<"\t"<<std::endl;
 }

@@ -8,9 +8,9 @@ Task::Task(int priority, int hours): priority(priority), hours(hours)  {
 
 }
 
-void Task::assign() const {
-    std::cout << "Assigning task with priority " << priority
-              << " for " << hours << " hours." << std::endl;
+void Task::assign() {
+    std::cout << "Assigning " << name << " " << priority << " for " << hours << " hours." << std::endl;
+    progress = TaskProgressType::TWork;
 }
 
 int Task::getPriority() const  {

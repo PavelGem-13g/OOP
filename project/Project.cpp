@@ -9,22 +9,29 @@ void Project::addActor(const Actor& actor) {
     actors.emplace_back(actor);
 }
 
-void Project::splitTasks() {
-    for (int i=0; i < tasks.size(); ++i) {
-        if (tasks[i]->getType() == TaskType::TTask) {
-            //splitTask(tasks[i]);
-        }
-    }
-}
-
 void Project::distributeTasks() {
     // Сортировка задач по приоритету
-//    std::sort(tasks.begin(), tasks.end(), [](const Task& a, const Task& b) {
-//        return a.getPriority() > b.getPriority();
-//    });
+    sortTasksAscending();
+    std::vector<Task> simpleTasks = std::vector<Task>();
+    for (auto task: tasks) {
+        switch (task->getType()) {
+            case TaskType::TTask:
+                simpleTasks.push_back(*task);
+                break;
+            case TaskType::TComplexTask:
+                for (auto subtask: dynamic_cast<ComplexTask*>(task)->getSubtasks()) {
+                    simpleTasks.push_back(subtask);
+                }
+                break;
+            case TaskType::TNone:
+                break;
+            case TaskType::TSubTask:
+                break;
+        }
+    }
 
     // Распределение задач по исполнителям
-    for (const auto& task : tasks) {
+    for (const auto task : simpleTasks) {
         // Сортировка исполнителей по доступным часам в неделю
         std::sort(actors.begin(), actors.end(), [](const Actor& a, const Actor& b) {
             return a.getHours() > b.getHours();
@@ -32,24 +39,10 @@ void Project::distributeTasks() {
 
         // Выбор первого доступного исполнителя
         Actor& member = actors.front();
-        //member.assignTask(task);
+        member.assignTask(task);
     }
 }
 
-void Project::splitTask(Task &task) {
-    // Предположим, что порог времени для разделения задачи составляет 5 часов
-    const int splitThreshold = 5;
-
-    if (task.getHours() > splitThreshold) {
-        Subtask subtask1{task.getPriority() + 1, splitThreshold};
-        Subtask subtask2{task.getPriority() - 1, task.getHours() - splitThreshold};
-        //tasks.push_back(subtask1);
-        //tasks.push_back(subtask2);
-    } else {
-        //task.
-        //tasks.push_back(Subtask{task.getPriority(), task.getHours()});
-    }
-}
 
 void Project::addTask(Task *task) {
 //    if(task->getHours()>threshold){
@@ -73,4 +66,37 @@ std::vector<Actor> Project::getActors() const{
 
 std::vector<Task *> Project::getTasks() const{
     return tasks;
+}
+
+void Project::sortTasksAscending() {
+    auto compare = [](Task *a, const Task *b) {
+        if(a->getPriority() != b->getPriority()){
+            return a->getPriority() > b->getPriority();
+        }
+        if(a->getHours() != b->getHours()){
+            return a->getHours() > b->getHours();
+        }
+        if(a->getType() != b->getType()){
+            return a->getType() > b->getType();
+        }
+        return a->getProgress() > b->getProgress();
+    };
+    sortTasks(compare);
+}
+
+template<class Compare>
+void Project::sortTasks(Compare comparator) {
+    std::sort(tasks.begin(), tasks.end(), comparator);
+}
+
+void Project::show() {
+    std::cout<<"Tasks"<<std::endl;
+    for (auto& item: tasks) {
+        item->show();
+    }
+
+    std::cout<<"Actors"<<std::endl;
+    for (auto& item: actors) {
+        item.show();
+    }
 }

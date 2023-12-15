@@ -10,7 +10,6 @@
 
 #include "Actor.h"
 #include "Task.h"
-#include "Subtask.h"
 
 class Project {
 public:
@@ -19,12 +18,17 @@ public:
     void addTask(Task *task);
     void addTask(const std::string& name, int hours, int priority);
 
-    void splitTasks();
-
     void distributeTasks();
 
     std::vector<Actor> getActors() const;
     std::vector<Task*> getTasks() const;
+
+    template<class Compare>
+    void sortTasks(Compare comparator);
+
+    void sortTasksAscending();
+
+    void show();
 
 private:
     int threshold;
