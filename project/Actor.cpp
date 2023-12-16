@@ -4,7 +4,10 @@
 
 #include "Actor.h"
 
-Actor::Actor(const std::string &name, int weeklyHours) : name(name), hours(weeklyHours) {
+#include <iostream>
+#include <utility>
+
+Actor::Actor(std::string name, int weeklyHours) : name(std::move(name)), hours(weeklyHours) {
 
 }
 
@@ -16,11 +19,10 @@ int Actor::getHours() const {
     return hours;
 }
 
-void Actor::assignTask(Task task) {
-    task.assign();
-    hours -= task.getHours();
-}
-
 void Actor::show() {
     std::cout<<"Name "<<name<<"\tHours "<<hours<<"\t"<<std::endl;
+}
+
+void Actor::changeHours(int delta) {
+    hours+=delta;
 }

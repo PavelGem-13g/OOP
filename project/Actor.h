@@ -7,19 +7,18 @@
 
 
 #include <string>
-#include "Task.h"
 
 class Actor {
 public:
-    Actor(const std::string& name, int weeklyHours);
+    Actor(std::string  name, int weeklyHours);
 
     const std::string& getName() const;
 
     int getHours() const;
 
-    void assignTask(Task task);
-
     void show();
+
+    void changeHours(int delta);
 private:
     std::string name;
     int hours;

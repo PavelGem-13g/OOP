@@ -8,8 +8,19 @@ Task::Task(int priority, int hours): priority(priority), hours(hours)  {
 
 }
 
-void Task::assign() {
-    std::cout << "Assigning " << name << " " << priority << " for " << hours << " hours." << std::endl;
+void Task::assign(Actor &actor) {
+    if(actor.getHours()>=hours){
+        progress = TaskProgressType::TComplete;
+        int deltaHours = hours;
+        changeHours(-deltaHours);
+        std::cout<<"Decrease "<<actor.getHours()<<" "<<-deltaHours<<std::endl;
+        actor.changeHours(-deltaHours);
+    } else{
+        progress = TaskProgressType::TWork;
+        changeHours(-actor.getHours());
+        actor.changeHours(-actor.getHours());
+    }
+    std::cout << "Assigning " << name << "\tfor " << hours << " hours with progress "<< GetTaskProgressTypeString(progress) << std::endl;
     progress = TaskProgressType::TWork;
 }
 
@@ -48,8 +59,8 @@ Task::Task(const Task &task) {
 }
 
 void Task::show() {
-    //std::cout<<getName()<<std::endl;
-    std::cout<<"Name "<<name<<"\tHours "<<hours<<"\tPriority "<<priority<<"\tType "<<GetTypeString(getType())<<std::endl;
+    std::cout << "Name " << name << "\tHours " << hours << "\tPriority " << priority << "\tType " << GetTaskTypeString(
+            getType()) << std::endl;
 }
 
 Task::Task() {
@@ -57,4 +68,24 @@ Task::Task() {
     this->hours = 0;
     this->priority = 0;
     this->progress = TaskProgressType::TFree;
+}
+
+bool Task::check(const Actor &actor) {
+    return actor.getHours() > 0;
+}
+
+void Task::complete(Actor &actor) {
+    progress = TaskProgressType::TComplete;
+    changeHours(-hours);
+    actor.changeHours(-hours);
+}
+
+void Task::changeHours(int delta) {
+    hours+=delta;
+}
+
+void Task::work(Actor &actor) {
+    progress = TaskProgressType::TWork;
+    changeHours(-actor.getHours());
+    actor.changeHours(-actor.getHours());
 }

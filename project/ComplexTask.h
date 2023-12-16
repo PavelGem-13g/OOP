@@ -13,13 +13,13 @@ public:
     ComplexTask();
     ComplexTask(const Task &task);
     ComplexTask(const std::string &name, int hours, int priority);
-    std::vector<Task> getSubtasks() const;
+    std::vector<Task*> getSubtasks() const;
 
     TaskType getType() const override;
 
     void show() override;
 private:
-    std::vector<Task> subtasks;
+    std::vector<Task*> subtasks;
 
     void splitTasks();
 };

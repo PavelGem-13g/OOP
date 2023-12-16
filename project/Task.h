@@ -11,6 +11,7 @@
 #include <string>
 #include "TaskType.h"
 #include "TaskProgressType.h"
+#include "Actor.h"
 
 class Task {
 public:
@@ -22,7 +23,7 @@ public:
 
     Task(const std::string &name, int hours, int priority);
 
-    virtual void assign();
+    virtual void assign(Actor &actor);
 
     int getPriority() const;
 
@@ -36,11 +37,18 @@ public:
 
     virtual void show();
 
+    virtual bool check(const Actor &actor);
+
+    void changeHours(int delta);
+
 protected:
     std::string name;
     int hours;
     int priority;
     TaskProgressType progress;
+
+    virtual void complete(Actor &actor);
+    virtual void work(Actor &actor);
 };
 
 

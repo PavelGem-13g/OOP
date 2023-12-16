@@ -5,7 +5,7 @@
 #include <map>
 #include "TaskType.h"
 
-std::string GetTypeString(TaskType entityType){
+std::string GetTaskTypeString(TaskType entityType){
     std::map<TaskType, std::string> entityTypeStrings{
             {TaskType::TNone, "None"},
             {TaskType::TTask, "TTask"},

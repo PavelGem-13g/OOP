@@ -15,7 +15,7 @@ enum class TaskType {
     TComplexTask
 };
 
-std::string GetTypeString(TaskType entityType);
+std::string GetTaskTypeString(TaskType entityType);
 
 
 #endif //PROJECT_TASKTYPE_H

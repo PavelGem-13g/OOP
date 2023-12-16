@@ -12,17 +12,18 @@ void Project::addActor(const Actor& actor) {
 void Project::distributeTasks() {
     // Сортировка задач по приоритету
     sortTasksAscending();
-    std::vector<Task> simpleTasks = std::vector<Task>();
-    for (auto task: tasks) {
+    std::vector<Task*> simpleTasks;
+
+    for (auto& task : tasks) {
         switch (task->getType()) {
             case TaskType::TTask:
-                simpleTasks.push_back(*task);
+                simpleTasks.push_back(task);
                 break;
-            case TaskType::TComplexTask:
-                for (auto subtask: dynamic_cast<ComplexTask*>(task)->getSubtasks()) {
-                    simpleTasks.push_back(subtask);
-                }
+            case TaskType::TComplexTask: {
+                std::vector<Task*> subtasks = dynamic_cast<ComplexTask*>(task)->getSubtasks();
+                simpleTasks.insert(simpleTasks.end(), subtasks.begin(), subtasks.end());
                 break;
+            }
             case TaskType::TNone:
                 break;
             case TaskType::TSubTask:
@@ -30,16 +31,18 @@ void Project::distributeTasks() {
         }
     }
 
-    // Распределение задач по исполнителям
-    for (const auto task : simpleTasks) {
+// Распределение задач по исполнителям
+    for (auto task : simpleTasks) {
         // Сортировка исполнителей по доступным часам в неделю
         std::sort(actors.begin(), actors.end(), [](const Actor& a, const Actor& b) {
             return a.getHours() > b.getHours();
         });
 
         // Выбор первого доступного исполнителя
-        Actor& member = actors.front();
-        member.assignTask(task);
+        Actor& actor = actors.front();
+        if (task->check(actor)) {
+            task->assign(actor);
+        }
     }
 }
 
