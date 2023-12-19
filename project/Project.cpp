@@ -61,6 +61,10 @@ std::vector<std::shared_ptr<Task>> Project::getTasks() const{
     return tasks;
 }
 
+int Project::getThreshold() const {
+    return threshold;
+}
+
 template<class Compare>
 void Project::sortTasks(const Compare &comparator) {
     std::sort(tasks.begin(), tasks.end(), comparator);

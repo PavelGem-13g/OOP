@@ -12,13 +12,13 @@ Actor::Actor() {
     hours = 10;
 }
 
+Actor::Actor(std::string name, int weeklyHours) : name(std::move(name)), hours(weeklyHours) {
+
+}
+
 Actor::Actor(const Actor &actor) {
     this->name = actor.name;
     this->hours = actor.hours;
-}
-
-Actor::Actor(std::string name, int weeklyHours) : name(std::move(name)), hours(weeklyHours) {
-
 }
 
 const std::string &Actor::getName() const {

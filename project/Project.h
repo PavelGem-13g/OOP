@@ -24,6 +24,7 @@ public:
 
     std::vector<std::shared_ptr<Actor>> getActors() const;
     std::vector<std::shared_ptr<Task>> getTasks() const;
+    int getThreshold() const;
 
     template<class Compare>
     void sortTasks(const Compare &comparator);

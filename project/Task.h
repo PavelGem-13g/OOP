@@ -28,7 +28,9 @@ public:
     int getHours() const;
     std::string getName() const;
     virtual TaskType getType() const;
+    std::set<std::shared_ptr<Actor>> getActors() const;
     TaskProgressType getProgress() const;
+
 
     virtual void show() const;
 

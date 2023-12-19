@@ -11,8 +11,8 @@
 class Actor final {
 public:
     Actor();
-    Actor(const Actor &actor);
     Actor(std::string  name, int weeklyHours);
+    Actor(const Actor &actor);
     ~Actor() = default;
 
     const std::string& getName() const;

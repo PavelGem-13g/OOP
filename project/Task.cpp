@@ -5,7 +5,7 @@
 #include "Task.h"
 
 Task::Task() {
-    this->name = "";
+    this->name = "Name";
     this->hours = 0;
     this->priority = 0;
     this->progress = TaskProgressType::TFree;
@@ -50,6 +50,10 @@ TaskType Task::getType() const {
     return TaskType::TTask;
 }
 
+std::set<std::shared_ptr<Actor>> Task::getActors() const {
+    return actors;
+}
+
 TaskProgressType Task::getProgress() const {
     return progress;
 }
@@ -68,14 +72,11 @@ bool Task::check(const std::shared_ptr<Actor> actor) {
 }
 
 void Task::assign(std::shared_ptr<Actor> actor) {
-    std::cout << "Assigning " << name << "\tfor " << hours << " hours with progress "<< GetTaskProgressTypeString(progress) << std::endl;
     actors.insert(actor);
     if(actor->getHours()>=hours){
         complete(actor);
-        std::cout<<"Complete "<<getName()<<std::endl;
     } else{
         work(actor);
-        std::cout<<"Work on "<<getName()<<" Remained "<<hours<<std::endl;
     }
 }
 

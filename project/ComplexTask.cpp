@@ -65,7 +65,6 @@ void ComplexTask::work(std::shared_ptr<Actor> actor) {
 void ComplexTask::complete(std::shared_ptr<Actor> actor) {
     progress = TaskProgressType::TComplete;
     hours -= hours;
-    std::cout<<"Complete "<< getName()<<std::endl;
 }
 
 void ComplexTask::splitTasks() {
