@@ -28,3 +28,7 @@ CollectionResultsTask::CollectionResultsTask() :Subtask() {
 
 }
 
+CollectionResultsTask::CollectionResultsTask(const CollectionResultsTask &collectionResultsTask) : Subtask(collectionResultsTask) {
+
+}
+

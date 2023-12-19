@@ -54,7 +54,7 @@ Task::Task(const Task &task) {
     this->progress = task.progress;
 }
 
-void Task::show() {
+void Task::show() const {
     std::cout << "Name " << name << "\tHours " << hours << "\tPriority " << priority << "\tType " << GetTaskTypeString(
             getType()) << "\tProgress "<< GetTaskProgressTypeString(getProgress()) << std::endl;
     for(auto& actor:actors){

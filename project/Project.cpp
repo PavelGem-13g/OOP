@@ -64,14 +64,14 @@ void Project::sortTasks(const Compare &comparator) {
     std::sort(tasks.begin(), tasks.end(), comparator);
 }
 
-void Project::show() {
+void Project::show() const{
     std::cout<<"Tasks"<<std::endl;
-    for (auto& item: tasks) {
+    for (const auto& item: tasks) {
         item->show();
     }
 
     std::cout<<"Actors"<<std::endl;
-    for (auto& item: actors) {
+    for (const auto& item: actors) {
         item->show();
     }
 }
@@ -116,4 +116,19 @@ void Project::sortActorsDescending() {
 
 Project::Project() {
     threshold = 5;
+}
+
+Project::Project(const Project &project) {
+    this->threshold = project.threshold;
+
+    for(auto& actor: project.actors){
+        actors.push_back(actor);
+    }
+    for(auto& actor: project.tasks){
+        tasks.push_back(actor);
+    }
+}
+
+Project::Project(int threshold) {
+    this->threshold = threshold;
 }

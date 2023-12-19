@@ -8,11 +8,10 @@
 
 #include "Task.h"
 
-class ComplexTask : public Task{
+class ComplexTask final : public Task{
 public:
     ComplexTask();
     ComplexTask(const std::string &name, int hours, int priority);
-    ComplexTask(const ComplexTask *pTask);
     ComplexTask(const ComplexTask &complexTask);
     ~ComplexTask() = default;
 
@@ -21,7 +20,7 @@ public:
     TaskType getType() const override;
 
     void assign(std::shared_ptr<Actor> actor) override;
-    void show() override;
+    void show() const override;
     void addToProject(int threshold);
 
 protected:

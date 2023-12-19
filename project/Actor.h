@@ -8,17 +8,16 @@
 
 #include <string>
 
-class Actor {
+class Actor final {
 public:
     Actor();
     Actor(const Actor &actor);
     Actor(std::string  name, int weeklyHours);
+    ~Actor() = default;
 
     const std::string& getName() const;
-
     int getHours() const;
-
-    void show();
+    void show() const;
 
     void changeHours(int delta);
 private:

@@ -15,7 +15,7 @@
 #include "TaskProgressType.h"
 #include "Actor.h"
 
-class Task : public std::enable_shared_from_this<Task>{
+class Task {
 public:
     Task();
     Task(int priority, int hours);
@@ -30,7 +30,7 @@ public:
     virtual TaskType getType() const;
     TaskProgressType getProgress() const;
 
-    virtual void show();
+    virtual void show() const;
 
     virtual bool check(std::shared_ptr<Actor> actor);
     virtual void assign(std::shared_ptr<Actor> actor);

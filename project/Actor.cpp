@@ -19,7 +19,7 @@ int Actor::getHours() const {
     return hours;
 }
 
-void Actor::show() {
+void Actor::show() const{
     std::cout<<"Name "<<name<<"\tHours "<<hours<<"\t"<<std::endl;
 }
 

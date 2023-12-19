@@ -7,11 +7,12 @@
 
 #include "Subtask.h"
 
-class CollectionResultsTask : public Subtask{
+class CollectionResultsTask final : public Subtask{
 public:
     CollectionResultsTask();
     CollectionResultsTask(std::string &name, int hours, int priority, ComplexTask *complexTask);
     CollectionResultsTask(const CollectionResultsTask &collectionResultsTask);
+    ~CollectionResultsTask() = default;
 
     ComplexTask* getComplexTask();
 

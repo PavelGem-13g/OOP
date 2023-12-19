@@ -13,6 +13,7 @@ public:
     Subtask();
     Subtask(const std::string &name, int hours, int priority, ComplexTask *complexTask);
     Subtask(const Subtask &subtask);
+    ~Subtask() = default;
 
     TaskType getType() const override;
     void assign(std::shared_ptr<Actor> actor) override;

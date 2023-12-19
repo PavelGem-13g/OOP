@@ -16,7 +16,7 @@ TaskType ComplexTask::getType() const {
     return TaskType::TComplexTask;
 }
 
-void ComplexTask::show() {
+void ComplexTask::show() const {
     Task::show();
     for (auto &subtask: subtasks) {
         subtask->show();
@@ -75,10 +75,6 @@ void ComplexTask::complete(std::shared_ptr<Actor> actor) {
     progress = TaskProgressType::TComplete;
     hours -= hours;
     std::cout<<"Complete "<< getName()<<std::endl;
-}
-
-ComplexTask::ComplexTask(const ComplexTask *pTask) : ComplexTask(*pTask) {
-
 }
 
 void ComplexTask::addToProject(int threshold) {

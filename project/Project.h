@@ -11,9 +11,12 @@
 #include "Actor.h"
 #include "Task.h"
 
-class Project {
+class Project final {
 public:
     Project();
+    Project(int threshold);
+    Project(const Project &project);
+    ~Project() = default;
 
     void addActor(const std::shared_ptr<Actor> actor);
 
@@ -36,7 +39,7 @@ public:
 
     std::vector<std::shared_ptr<Task>> getSimpleTasks();
 
-    void show();
+    void show() const;
 
 private:
     int threshold;
