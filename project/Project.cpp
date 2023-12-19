@@ -5,8 +5,34 @@
 #include "Project.h"
 #include "ComplexTask.h"
 
+Project::Project() {
+    threshold = 5;
+}
+
+Project::Project(int threshold) {
+    this->threshold = threshold;
+}
+
+Project::Project(const Project &project) {
+    this->threshold = project.threshold;
+
+    for(auto& actor: project.actors){
+        actors.push_back(actor);
+    }
+    for(auto& actor: project.tasks){
+        tasks.push_back(actor);
+    }
+}
+
 void Project::addActor(const std::shared_ptr<Actor> actor) {
     actors.push_back(actor);
+}
+
+void Project::addTask(const std::shared_ptr<Task> task) {
+    if(task->getType()==TaskType::TComplexTask){
+        std::dynamic_pointer_cast<ComplexTask>(task)->addToProject(threshold);
+    }
+    tasks.push_back(task);
 }
 
 void Project::distributeTasks() {
@@ -27,20 +53,17 @@ void Project::distributeTasks() {
     }
 }
 
-
-void Project::addTask(const std::shared_ptr<Task> task) {
-    if(task->getType()==TaskType::TComplexTask){
-        std::dynamic_pointer_cast<ComplexTask>(task)->addToProject(threshold);
-    }
-    tasks.push_back(task);
-}
-
 std::vector<std::shared_ptr<Actor>> Project::getActors() const{
     return actors;
 }
 
 std::vector<std::shared_ptr<Task>> Project::getTasks() const{
     return tasks;
+}
+
+template<class Compare>
+void Project::sortTasks(const Compare &comparator) {
+    std::sort(tasks.begin(), tasks.end(), comparator);
 }
 
 void Project::sortTasksDescending() {
@@ -60,20 +83,18 @@ void Project::sortTasksDescending() {
 }
 
 template<class Compare>
-void Project::sortTasks(const Compare &comparator) {
-    std::sort(tasks.begin(), tasks.end(), comparator);
+void Project::sortActors(const Compare &comparator) {
+    std::sort(actors.begin(), actors.end(), comparator);
 }
 
-void Project::show() const{
-    std::cout<<"Tasks"<<std::endl;
-    for (const auto& item: tasks) {
-        item->show();
-    }
-
-    std::cout<<"Actors"<<std::endl;
-    for (const auto& item: actors) {
-        item->show();
-    }
+void Project::sortActorsDescending() {
+    auto compare = [](const std::shared_ptr<Actor> a, const std::shared_ptr<Actor> b) {
+        if(a->getHours() != b->getHours()){
+            return a->getHours() > b->getHours();
+        }
+        return a->getName() > b->getName();
+    };
+    sortActors(compare);
 }
 
 std::vector<std::shared_ptr<Task>> Project::getSimpleTasks() {
@@ -99,36 +120,14 @@ std::vector<std::shared_ptr<Task>> Project::getSimpleTasks() {
     return result;
 }
 
-template<class Compare>
-void Project::sortActors(const Compare &comparator) {
-    std::sort(actors.begin(), actors.end(), comparator);
-}
-
-void Project::sortActorsDescending() {
-    auto compare = [](const std::shared_ptr<Actor> a, const std::shared_ptr<Actor> b) {
-        if(a->getHours() != b->getHours()){
-            return a->getHours() > b->getHours();
-        }
-        return a->getName() > b->getName();
-    };
-    sortActors(compare);
-}
-
-Project::Project() {
-    threshold = 5;
-}
-
-Project::Project(const Project &project) {
-    this->threshold = project.threshold;
-
-    for(auto& actor: project.actors){
-        actors.push_back(actor);
+void Project::show() const{
+    std::cout<<"Tasks"<<std::endl;
+    for (const auto& item: tasks) {
+        item->show();
     }
-    for(auto& actor: project.tasks){
-        tasks.push_back(actor);
-    }
-}
 
-Project::Project(int threshold) {
-    this->threshold = threshold;
+    std::cout<<"Actors"<<std::endl;
+    for (const auto& item: actors) {
+        item->show();
+    }
 }

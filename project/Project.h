@@ -19,9 +19,7 @@ public:
     ~Project() = default;
 
     void addActor(const std::shared_ptr<Actor> actor);
-
     void addTask(const std::shared_ptr<Task> task);
-
     void distributeTasks();
 
     std::vector<std::shared_ptr<Actor>> getActors() const;
@@ -29,12 +27,10 @@ public:
 
     template<class Compare>
     void sortTasks(const Compare &comparator);
-
     void sortTasksDescending();
 
     template<class Compare>
     void sortActors(const Compare &comparator);
-
     void sortActorsDescending();
 
     std::vector<std::shared_ptr<Task>> getSimpleTasks();

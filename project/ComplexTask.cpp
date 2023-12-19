@@ -8,12 +8,41 @@
 #include "ComplexTask.h"
 #include "CollectionResultsTask.h"
 
+
+ComplexTask::ComplexTask() :Task() {
+    splitTasks();
+}
+
+ComplexTask::ComplexTask(const std::string &name, int hours, int priority) : Task(name, hours, priority) {
+
+}
+
+ComplexTask::ComplexTask(const ComplexTask &complexTask):Task(complexTask) {
+    this->threshold = complexTask.threshold;
+    for(auto &task: complexTask.subtasks){
+        this->subtasks.push_back(task);
+    }
+}
+
 std::vector<std::shared_ptr<Task>> ComplexTask::getSubtasks() const{
     return subtasks;
 }
 
 TaskType ComplexTask::getType() const {
     return TaskType::TComplexTask;
+}
+
+void ComplexTask::assign(std::shared_ptr<Actor> actor) {
+    actors.insert(actor);
+    int count = 0;
+    for(auto& task: subtasks){
+        if(task->getProgress()==TaskProgressType::TComplete){
+            count+=1;
+        }
+    }
+    if(count==subtasks.size()){
+        complete(actor);
+    }
 }
 
 void ComplexTask::show() const {
@@ -23,8 +52,20 @@ void ComplexTask::show() const {
     }
 }
 
-ComplexTask::ComplexTask(const std::string &name, int hours, int priority) : Task(name, hours, priority) {
+void ComplexTask::addToProject(int threshold) {
+    this->threshold = threshold;
+    splitTasks();
+}
 
+
+void ComplexTask::work(std::shared_ptr<Actor> actor) {
+
+}
+
+void ComplexTask::complete(std::shared_ptr<Actor> actor) {
+    progress = TaskProgressType::TComplete;
+    hours -= hours;
+    std::cout<<"Complete "<< getName()<<std::endl;
 }
 
 void ComplexTask::splitTasks() {
@@ -49,43 +90,3 @@ void ComplexTask::splitTasks() {
                                            this->getPriority() - 1, complexTask);
     subtasks.push_back(std::move(task));
 }
-
-ComplexTask::ComplexTask() :Task() {
-    splitTasks();
-}
-
-void ComplexTask::assign(std::shared_ptr<Actor> actor) {
-    actors.insert(actor);
-    int count = 0;
-    for(auto& task: subtasks){
-        if(task->getProgress()==TaskProgressType::TComplete){
-            count+=1;
-        }
-    }
-    if(count==subtasks.size()){
-        complete(actor);
-    }
-}
-
-void ComplexTask::work(std::shared_ptr<Actor> actor) {
-
-}
-
-void ComplexTask::complete(std::shared_ptr<Actor> actor) {
-    progress = TaskProgressType::TComplete;
-    hours -= hours;
-    std::cout<<"Complete "<< getName()<<std::endl;
-}
-
-void ComplexTask::addToProject(int threshold) {
-    this->threshold = threshold;
-    splitTasks();
-}
-
-ComplexTask::ComplexTask(const ComplexTask &complexTask):Task(complexTask) {
-    this->threshold = complexTask.threshold;
-    for(auto &task: complexTask.subtasks){
-        this->subtasks.push_back(task);
-    }
-}
-

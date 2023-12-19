@@ -19,8 +19,8 @@ class Task {
 public:
     Task();
     Task(int priority, int hours);
-    Task(const std::string &name, int hours, int priority, TaskProgressType progress);
     Task(const std::string &name, int hours, int priority);
+    Task(const std::string &name, int hours, int priority, TaskProgressType progress);
     Task(const Task &task);
     ~Task() = default;
 

@@ -6,6 +6,18 @@
 
 #include <utility>
 
+Subtask::Subtask() : Task() {
+
+}
+
+Subtask::Subtask(const std::string &name, int hours, int priority, ComplexTask* complexTask) : Task(name, hours, priority) {
+    this->complexTask = complexTask;
+}
+
+Subtask::Subtask(const Subtask &subtask): Task(subtask) {
+    this->complexTask = subtask.complexTask;
+}
+
 TaskType Subtask::getType() const {
     return TaskType::TSubTask;
 }
@@ -23,17 +35,5 @@ void Subtask::complete(std::shared_ptr<Actor> actor) {
 void Subtask::work(std::shared_ptr<Actor> actor) {
     Task::work(actor);
     complexTask->assign(actor);
-}
-
-Subtask::Subtask() {
-
-}
-
-Subtask::Subtask(const std::string &name, int hours, int priority, ComplexTask* complexTask) : Task(name, hours, priority) {
-    this->complexTask = complexTask;
-}
-
-Subtask::Subtask(const Subtask &subtask): Task(subtask) {
-    this->complexTask = subtask.complexTask;
 }
 

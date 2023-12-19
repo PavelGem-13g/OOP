@@ -7,6 +7,16 @@
 #include <iostream>
 #include <utility>
 
+Actor::Actor() {
+    name = "Actor";
+    hours = 10;
+}
+
+Actor::Actor(const Actor &actor) {
+    this->name = actor.name;
+    this->hours = actor.hours;
+}
+
 Actor::Actor(std::string name, int weeklyHours) : name(std::move(name)), hours(weeklyHours) {
 
 }
@@ -25,14 +35,4 @@ void Actor::show() const{
 
 void Actor::changeHours(int delta) {
     hours+=delta;
-}
-
-Actor::Actor() {
-    name = "Actor";
-    hours = 10;
-}
-
-Actor::Actor(const Actor &actor) {
-    this->name = actor.name;
-    this->hours = actor.hours;
 }
