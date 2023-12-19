@@ -15,7 +15,7 @@
 #include "TaskProgressType.h"
 #include "Actor.h"
 
-class Task {
+class Task : public std::enable_shared_from_this<Task>{
 public:
     Task();
 

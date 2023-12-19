@@ -13,10 +13,10 @@ void Task::assign(std::shared_ptr<Actor> actor) {
     actors.insert(actor);
     if(actor->getHours()>=hours){
         complete(actor);
-        std::cout<<"Complete "<<name<<std::endl;
+        std::cout<<"Complete "<<getName()<<std::endl;
     } else{
         work(actor);
-        std::cout<<"Work on "<<name<<" Remained "<<hours<<std::endl;
+        std::cout<<"Work on "<<getName()<<" Remained "<<hours<<std::endl;
     }
 }
 
@@ -56,7 +56,11 @@ Task::Task(const Task &task) {
 
 void Task::show() {
     std::cout << "Name " << name << "\tHours " << hours << "\tPriority " << priority << "\tType " << GetTaskTypeString(
-            getType()) << std::endl;
+            getType()) << "\tProgress "<< GetTaskProgressTypeString(getProgress()) << std::endl;
+    for(auto& actor:actors){
+        std::cout<<"\t"<<actor->getName();
+    }
+    std::cout<<std::endl;
 }
 
 Task::Task() {

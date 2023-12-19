@@ -13,10 +13,11 @@
 
 class Project {
 public:
+    Project();
+
     void addActor(const std::shared_ptr<Actor> actor);
 
     void addTask(const std::shared_ptr<Task> task);
-    void addTask(const std::string& name, int hours, int priority);
 
     void distributeTasks();
 

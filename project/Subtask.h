@@ -10,6 +10,9 @@
 
 class Subtask : public Task{
 public:
+    Subtask();
+    Subtask(const std::string &name, int hours, int priority, std::shared_ptr<ComplexTask> complexTask);
+
     TaskType getType() const override;
     void assign(std::shared_ptr<Actor> actor) override;
 

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cassert>
 #include "Project.h"
 #include "ComplexTask.h"
 
@@ -14,10 +15,14 @@ int main() {
     project.addActor(actor3);
 
     std::shared_ptr<Task> task1 = std::make_shared<Task>(Task{"Simple task1", 3, 8});
+    assert(task1->getName()=="Simple task1");
+
     std::shared_ptr<Task> task2 = std::make_shared<Task>(Task{"Simple task2",2, 15});
     std::shared_ptr<Task> task3 = std::make_shared<Task>(Task{"Simple task3", 1, 4});
 
     std::shared_ptr<ComplexTask> complexTask1 = std::make_shared<ComplexTask>(ComplexTask{"Complex task1",13, 8});
+    assert(complexTask1->getName()=="Complex task1");
+
     std::shared_ptr<ComplexTask> complexTask2 = std::make_shared<ComplexTask>(ComplexTask{"Complex task2",9, 20});
     std::shared_ptr<ComplexTask> complexTask3 = std::make_shared<ComplexTask>(ComplexTask{"Complex task3",15, 8});
 
@@ -29,11 +34,9 @@ int main() {
     project.addTask(complexTask2);
     project.addTask(complexTask3);
 
-
-    //project.splitTasks();
-    project.show();
-    int week = 3;
+    assert(complexTask1->getSubtasks().size()==4);
+    //project.show();
 
     project.distributeTasks();
-    project.show();
+    //project.show();
 }

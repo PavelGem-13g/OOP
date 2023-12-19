@@ -29,13 +29,10 @@ void Project::distributeTasks() {
 
 
 void Project::addTask(const std::shared_ptr<Task> task) {
+    if(task->getType()==TaskType::TComplexTask){
+        std::dynamic_pointer_cast<ComplexTask>(task)->addToProject(threshold);
+    }
     tasks.push_back(task);
-}
-
-void Project::addTask(const std::string& name, int hours, int priority) {
-    auto task = Task{name, hours, priority};
-    auto task_ptr = std::make_shared<ComplexTask>(task);
-    addTask(task_ptr);
 }
 
 std::vector<std::shared_ptr<Actor>> Project::getActors() const{
@@ -115,4 +112,8 @@ void Project::sortActorsDescending() {
         return a->getName() > b->getName();
     };
     sortActors(compare);
+}
+
+Project::Project() {
+    threshold = 5;
 }
