@@ -10,6 +10,7 @@ TaskType Subtask::getType() const {
 
 void Subtask::assign(std::shared_ptr<Actor> actor) {
     Task::assign(actor);
+    complexTask->assign(actor);
 }
 
 void Subtask::complete(std::shared_ptr<Actor> actor) {

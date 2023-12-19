@@ -31,11 +31,16 @@ ComplexTask::ComplexTask(const std::string &name, int hours, int priority) : Tas
 
 void ComplexTask::splitTasks() {
     int hours = std::floor(this->hours*0.9);
-    int taskNumber = 1;
+    int taskNumber = 0;
     int threshold = 5;
     while (hours > 0){
-        std::string name = this->getName()+" - "+std::to_string(taskNumber);
-        auto tempTask = std::make_shared<Task>(name, std::min(threshold, hours), this->getPriority() + 1);
+        std::string name = this->getName()+" - "+std::to_string(taskNumber + 1);
+        std::shared_ptr<Task> tempTask;
+        if(taskNumber==1){
+            tempTask = std::make_shared<Task>(name, std::min(threshold, hours), this->getPriority()+1);
+        } else{
+            tempTask = std::make_shared<Task>(name, std::min(threshold, hours), this->getPriority());
+        }
         subtasks.push_back(tempTask);
         hours-=std::min(threshold, hours);
         taskNumber+=1;
@@ -51,7 +56,7 @@ ComplexTask::ComplexTask() :Task() {
 }
 
 void ComplexTask::assign(std::shared_ptr<Actor> actor) {
-    //Task::assign(actor);
+    Task::assign(actor);
 }
 
 void ComplexTask::work(std::shared_ptr<Actor> actor) {

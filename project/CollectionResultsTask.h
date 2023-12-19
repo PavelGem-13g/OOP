@@ -6,7 +6,6 @@
 #define PROJECT_COLLECTIONRESULTSTASK_H
 
 #include "Subtask.h"
-#include "ComplexTask.h"
 
 class CollectionResultsTask : public Subtask{
 public:
@@ -15,9 +14,6 @@ public:
 
     void complete(std::shared_ptr<Actor> actor) override;
     void work(std::shared_ptr<Actor> actor) override;
-
-private:
-    std::shared_ptr<ComplexTask> complexTask;
 };
 
 
