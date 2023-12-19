@@ -30,7 +30,7 @@ ComplexTask::ComplexTask(const std::string &name, int hours, int priority) : Tas
 void ComplexTask::splitTasks() {
     int hours = std::floor(this->hours*0.9);
     int taskNumber = 0;
-    auto complexTask = std::make_shared<ComplexTask>(this);
+    auto complexTask = this;
     while (hours > 0){
         std::string name = this->getName()+" - "+std::to_string(taskNumber + 1);
         std::shared_ptr<Task> task;

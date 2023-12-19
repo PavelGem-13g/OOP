@@ -29,8 +29,8 @@ Subtask::Subtask() {
 
 }
 
-Subtask::Subtask(const std::string &name, int hours, int priority, std::shared_ptr<ComplexTask> complexTask) : Task(name, hours, priority) {
-    this->complexTask = std::move(complexTask);
+Subtask::Subtask(const std::string &name, int hours, int priority, ComplexTask* complexTask) : Task(name, hours, priority) {
+    this->complexTask = complexTask;
 }
 
 Subtask::Subtask(const Subtask &subtask): Task(subtask) {

@@ -14,12 +14,12 @@ void CollectionResultsTask::work(std::shared_ptr<Actor> actor) {
     complexTask->assign(actor);
 }
 
-std::shared_ptr<Task> CollectionResultsTask::getComplexTask() {
+ComplexTask* CollectionResultsTask::getComplexTask() {
     return complexTask;
 }
 
 CollectionResultsTask::CollectionResultsTask(std::string &name, int hours, int priority,
-                                             std::shared_ptr<ComplexTask> complexTask):
+                                             ComplexTask *complexTask):
         Subtask(name, hours, priority, complexTask){
 
 }

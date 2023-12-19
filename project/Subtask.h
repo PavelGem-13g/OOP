@@ -11,7 +11,7 @@
 class Subtask : public Task{
 public:
     Subtask();
-    Subtask(const std::string &name, int hours, int priority, std::shared_ptr<ComplexTask> complexTask);
+    Subtask(const std::string &name, int hours, int priority, ComplexTask *complexTask);
     Subtask(const Subtask &subtask);
 
     TaskType getType() const override;
@@ -20,7 +20,7 @@ public:
 protected:
     void complete(std::shared_ptr<Actor> actor) override;
     void work(std::shared_ptr<Actor> actor) override;
-    std::shared_ptr<ComplexTask> complexTask;
+    ComplexTask *complexTask;
 };
 
 

@@ -10,10 +10,10 @@
 class CollectionResultsTask : public Subtask{
 public:
     CollectionResultsTask();
-    CollectionResultsTask(std::string &name, int hours, int priority, std::shared_ptr<ComplexTask> complexTask);
+    CollectionResultsTask(std::string &name, int hours, int priority, ComplexTask *complexTask);
     CollectionResultsTask(const CollectionResultsTask &collectionResultsTask);
 
-    std::shared_ptr<Task> getComplexTask();
+    ComplexTask* getComplexTask();
 
     void complete(std::shared_ptr<Actor> actor) override;
     void work(std::shared_ptr<Actor> actor) override;
