@@ -33,3 +33,7 @@ Subtask::Subtask(const std::string &name, int hours, int priority, std::shared_p
     this->complexTask = std::move(complexTask);
 }
 
+Subtask::Subtask(const Subtask &subtask): Task(subtask) {
+    this->complexTask = subtask.complexTask;
+}
+

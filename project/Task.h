@@ -18,30 +18,22 @@
 class Task : public std::enable_shared_from_this<Task>{
 public:
     Task();
-
     Task(int priority, int hours);
-
-    Task(const Task &task);
-
+    Task(const std::string &name, int hours, int priority, TaskProgressType progress);
     Task(const std::string &name, int hours, int priority);
-
+    Task(const Task &task);
+    ~Task() = default;
 
     int getPriority() const;
-
     int getHours() const;
-
     std::string getName() const;
-
     virtual TaskType getType() const;
-
     TaskProgressType getProgress() const;
 
     virtual void show();
 
-    virtual bool check(const std::shared_ptr<Actor> actor);
+    virtual bool check(std::shared_ptr<Actor> actor);
     virtual void assign(std::shared_ptr<Actor> actor);
-
-
     void changeHours(int delta);
 
 protected:

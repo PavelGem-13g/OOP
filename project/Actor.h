@@ -10,6 +10,8 @@
 
 class Actor {
 public:
+    Actor();
+    Actor(const Actor &actor);
     Actor(std::string  name, int weeklyHours);
 
     const std::string& getName() const;

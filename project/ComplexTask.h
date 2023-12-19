@@ -12,8 +12,9 @@ class ComplexTask : public Task{
 public:
     ComplexTask();
     ComplexTask(const std::string &name, int hours, int priority);
-
-    ComplexTask(ComplexTask *pTask);
+    ComplexTask(const ComplexTask *pTask);
+    ComplexTask(const ComplexTask &complexTask);
+    ~ComplexTask() = default;
 
     std::vector<std::shared_ptr<Task>> getSubtasks() const;
 

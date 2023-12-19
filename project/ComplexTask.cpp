@@ -77,12 +77,19 @@ void ComplexTask::complete(std::shared_ptr<Actor> actor) {
     std::cout<<"Complete "<< getName()<<std::endl;
 }
 
-ComplexTask::ComplexTask(ComplexTask *pTask) {
+ComplexTask::ComplexTask(const ComplexTask *pTask) : ComplexTask(*pTask) {
 
 }
 
 void ComplexTask::addToProject(int threshold) {
     this->threshold = threshold;
     splitTasks();
+}
+
+ComplexTask::ComplexTask(const ComplexTask &complexTask):Task(complexTask) {
+    this->threshold = complexTask.threshold;
+    for(auto &task: complexTask.subtasks){
+        this->subtasks.push_back(task);
+    }
 }
 

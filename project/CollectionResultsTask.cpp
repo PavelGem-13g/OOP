@@ -24,3 +24,7 @@ CollectionResultsTask::CollectionResultsTask(std::string &name, int hours, int p
 
 }
 
+CollectionResultsTask::CollectionResultsTask() :Subtask() {
+
+}
+

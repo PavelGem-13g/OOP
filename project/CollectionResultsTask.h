@@ -9,9 +9,9 @@
 
 class CollectionResultsTask : public Subtask{
 public:
-    //CollectionResultsTask(std::string string, int i, int i1, shared_ptr<Task> ptr);
+    CollectionResultsTask();
     CollectionResultsTask(std::string &name, int hours, int priority, std::shared_ptr<ComplexTask> complexTask);
-
+    CollectionResultsTask(const CollectionResultsTask &collectionResultsTask);
 
     std::shared_ptr<Task> getComplexTask();
 

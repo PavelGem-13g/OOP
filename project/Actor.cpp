@@ -26,3 +26,13 @@ void Actor::show() {
 void Actor::changeHours(int delta) {
     hours+=delta;
 }
+
+Actor::Actor() {
+    name = "Actor";
+    hours = 10;
+}
+
+Actor::Actor(const Actor &actor) {
+    this->name = actor.name;
+    this->hours = actor.hours;
+}

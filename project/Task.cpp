@@ -91,3 +91,10 @@ void Task::work(std::shared_ptr<Actor> actor) {
     changeHours(-deltaHours);
     actor->changeHours(-deltaHours);
 }
+
+Task::Task(const std::string &name, int hours, int priority, TaskProgressType progress) {
+    this->name = name;
+    this->hours = hours;
+    this->priority = priority;
+    this->progress = progress;
+}

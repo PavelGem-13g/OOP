@@ -35,8 +35,9 @@ int main() {
     project.addTask(complexTask3);
 
     assert(complexTask1->getSubtasks().size()==4);
-    //project.show();
+    project.show();
 
+    assert(complexTask1->getSubtasks()[0]->getType()==TaskType::TSubTask);
     project.distributeTasks();
-    //project.show();
+    project.show();
 }
