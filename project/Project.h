@@ -13,31 +13,35 @@
 
 class Project {
 public:
-    void addActor(const Actor& actor);
+    void addActor(const std::shared_ptr<Actor> actor);
 
-    void addTask(Task *task);
+    void addTask(const std::shared_ptr<Task> task);
     void addTask(const std::string& name, int hours, int priority);
 
     void distributeTasks();
 
-    std::vector<Actor> getActors() const;
-    std::vector<Task*> getTasks() const;
+    std::vector<std::shared_ptr<Actor>> getActors() const;
+    std::vector<std::shared_ptr<Task>> getTasks() const;
 
     template<class Compare>
-    void sortTasks(Compare comparator);
+    void sortTasks(const Compare &comparator);
 
-    void sortTasksAscending();
+    void sortTasksDescending();
+
+    template<class Compare>
+    void sortActors(const Compare &comparator);
+
+    void sortActorsDescending();
+
+    std::vector<std::shared_ptr<Task>> getSimpleTasks();
 
     void show();
 
 private:
     int threshold;
 
-    std::vector<Actor> actors;
-    std::vector<Task*> tasks;
-
-    void splitTask(Task& task);
-
+    std::vector<std::shared_ptr<Actor>> actors;
+    std::vector<std::shared_ptr<Task>> tasks;
 };
 
 

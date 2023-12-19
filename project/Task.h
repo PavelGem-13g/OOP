@@ -9,6 +9,8 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <set>
+
 #include "TaskType.h"
 #include "TaskProgressType.h"
 #include "Actor.h"
@@ -23,7 +25,6 @@ public:
 
     Task(const std::string &name, int hours, int priority);
 
-    virtual void assign(Actor &actor);
 
     int getPriority() const;
 
@@ -37,7 +38,9 @@ public:
 
     virtual void show();
 
-    virtual bool check(const Actor &actor);
+    virtual bool check(const std::shared_ptr<Actor> actor);
+    virtual void assign(std::shared_ptr<Actor> actor);
+
 
     void changeHours(int delta);
 
@@ -46,9 +49,10 @@ protected:
     int hours;
     int priority;
     TaskProgressType progress;
+    std::set<std::shared_ptr<Actor>> actors;
 
-    virtual void complete(Actor &actor);
-    virtual void work(Actor &actor);
+    virtual void complete(std::shared_ptr<Actor> actor);
+    virtual void work(std::shared_ptr<Actor> actor);
 };
 
 

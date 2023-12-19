@@ -8,20 +8,16 @@ Task::Task(int priority, int hours): priority(priority), hours(hours)  {
 
 }
 
-void Task::assign(Actor &actor) {
-    if(actor.getHours()>=hours){
-        progress = TaskProgressType::TComplete;
-        int deltaHours = hours;
-        changeHours(-deltaHours);
-        std::cout<<"Decrease "<<actor.getHours()<<" "<<-deltaHours<<std::endl;
-        actor.changeHours(-deltaHours);
-    } else{
-        progress = TaskProgressType::TWork;
-        changeHours(-actor.getHours());
-        actor.changeHours(-actor.getHours());
-    }
+void Task::assign(std::shared_ptr<Actor> actor) {
     std::cout << "Assigning " << name << "\tfor " << hours << " hours with progress "<< GetTaskProgressTypeString(progress) << std::endl;
-    progress = TaskProgressType::TWork;
+    actors.insert(actor);
+    if(actor->getHours()>=hours){
+        complete(actor);
+        std::cout<<"Complete "<<name<<std::endl;
+    } else{
+        work(actor);
+        std::cout<<"Work on "<<name<<" Remained "<<hours<<std::endl;
+    }
 }
 
 int Task::getPriority() const  {
@@ -70,22 +66,24 @@ Task::Task() {
     this->progress = TaskProgressType::TFree;
 }
 
-bool Task::check(const Actor &actor) {
-    return actor.getHours() > 0;
+bool Task::check(const std::shared_ptr<Actor> actor) {
+    return actor->getHours() > 0;
 }
 
-void Task::complete(Actor &actor) {
+void Task::complete(std::shared_ptr<Actor> actor) {
     progress = TaskProgressType::TComplete;
-    changeHours(-hours);
-    actor.changeHours(-hours);
+    int deltaHours = hours;
+    changeHours(-deltaHours);
+    actor->changeHours(-deltaHours);
 }
 
 void Task::changeHours(int delta) {
     hours+=delta;
 }
 
-void Task::work(Actor &actor) {
+void Task::work(std::shared_ptr<Actor> actor) {
     progress = TaskProgressType::TWork;
-    changeHours(-actor.getHours());
-    actor.changeHours(-actor.getHours());
+    int deltaHours = actor->getHours();
+    changeHours(-deltaHours);
+    actor->changeHours(-deltaHours);
 }

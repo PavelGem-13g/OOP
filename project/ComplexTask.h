@@ -13,13 +13,20 @@ public:
     ComplexTask();
     ComplexTask(const Task &task);
     ComplexTask(const std::string &name, int hours, int priority);
-    std::vector<Task*> getSubtasks() const;
+    std::vector<std::shared_ptr<Task>> getSubtasks() const;
 
     TaskType getType() const override;
 
+    void assign(std::shared_ptr<Actor> actor) override;
+
     void show() override;
+
+protected:
+    void work(std::shared_ptr<Actor> actor) override;
+    void complete(std::shared_ptr<Actor> actor) override;
+
 private:
-    std::vector<Task*> subtasks;
+    std::vector<std::shared_ptr<Task>> subtasks;
 
     void splitTasks();
 };

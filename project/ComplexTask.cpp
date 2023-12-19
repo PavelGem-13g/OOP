@@ -6,7 +6,7 @@
 
 #include "ComplexTask.h"
 
-std::vector<Task*> ComplexTask::getSubtasks() const{
+std::vector<std::shared_ptr<Task>> ComplexTask::getSubtasks() const{
     return subtasks;
 }
 
@@ -35,17 +35,30 @@ void ComplexTask::splitTasks() {
     int threshold = 5;
     while (hours > 0){
         std::string name = this->getName()+" - "+std::to_string(taskNumber);
-        Task *tempTask = new Task{name, std::min(threshold, hours), this->getPriority()+1};
+        auto tempTask = std::make_shared<Task>(name, std::min(threshold, hours), this->getPriority() + 1);
         subtasks.push_back(tempTask);
         hours-=std::min(threshold, hours);
         taskNumber+=1;
     }
     std::string name = this->getName()+" - Collecting results";
-    Task* tempTask = new Task{name, static_cast<int>(std::ceil(this->hours*0.1)), this->getPriority()-1};
-    subtasks.push_back(tempTask);
+    auto tempTask = std::make_shared<Task>(name, static_cast<int>(std::ceil(this->hours * 0.1)),
+                                           this->getPriority() - 1);
+    subtasks.push_back(std::move(tempTask));
 }
 
 ComplexTask::ComplexTask() :Task() {
     splitTasks();
+}
+
+void ComplexTask::assign(std::shared_ptr<Actor> actor) {
+    //Task::assign(actor);
+}
+
+void ComplexTask::work(std::shared_ptr<Actor> actor) {
+    Task::work(actor);
+}
+
+void ComplexTask::complete(std::shared_ptr<Actor> actor) {
+    Task::complete(actor);
 }
 

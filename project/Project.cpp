@@ -5,41 +5,22 @@
 #include "Project.h"
 #include "ComplexTask.h"
 
-void Project::addActor(const Actor& actor) {
-    actors.emplace_back(actor);
+void Project::addActor(const std::shared_ptr<Actor> actor) {
+    actors.push_back(actor);
 }
 
 void Project::distributeTasks() {
     // Сортировка задач по приоритету
-    sortTasksAscending();
-    std::vector<Task*> simpleTasks;
-
-    for (auto& task : tasks) {
-        switch (task->getType()) {
-            case TaskType::TTask:
-                simpleTasks.push_back(task);
-                break;
-            case TaskType::TComplexTask: {
-                std::vector<Task*> subtasks = dynamic_cast<ComplexTask*>(task)->getSubtasks();
-                simpleTasks.insert(simpleTasks.end(), subtasks.begin(), subtasks.end());
-                break;
-            }
-            case TaskType::TNone:
-                break;
-            case TaskType::TSubTask:
-                break;
-        }
-    }
+    sortTasksDescending();
+    std::vector<std::shared_ptr<Task>> simpleTasks = getSimpleTasks();
 
 // Распределение задач по исполнителям
-    for (auto task : simpleTasks) {
+    for (auto& task : simpleTasks) {
         // Сортировка исполнителей по доступным часам в неделю
-        std::sort(actors.begin(), actors.end(), [](const Actor& a, const Actor& b) {
-            return a.getHours() > b.getHours();
-        });
+        sortActorsDescending();
 
         // Выбор первого доступного исполнителя
-        Actor& actor = actors.front();
+        std::shared_ptr<Actor> actor = actors.front();
         if (task->check(actor)) {
             task->assign(actor);
         }
@@ -47,32 +28,26 @@ void Project::distributeTasks() {
 }
 
 
-void Project::addTask(Task *task) {
-//    if(task->getHours()>threshold){
-//        ComplexTask complexTask = ComplexTask(*task);
-//        tasks.push_back(&complexTask);
-//    }
-//    else{
-//        tasks.push_back(task);
-//    }
+void Project::addTask(const std::shared_ptr<Task> task) {
     tasks.push_back(task);
 }
 
 void Project::addTask(const std::string& name, int hours, int priority) {
-    Task task = Task{name, hours, priority};
-    addTask(&task);
+    auto task = Task{name, hours, priority};
+    auto task_ptr = std::make_shared<ComplexTask>(task);
+    addTask(task_ptr);
 }
 
-std::vector<Actor> Project::getActors() const{
+std::vector<std::shared_ptr<Actor>> Project::getActors() const{
     return actors;
 }
 
-std::vector<Task *> Project::getTasks() const{
+std::vector<std::shared_ptr<Task>> Project::getTasks() const{
     return tasks;
 }
 
-void Project::sortTasksAscending() {
-    auto compare = [](Task *a, const Task *b) {
+void Project::sortTasksDescending() {
+    auto compare = [](const std::shared_ptr<Task> a, const std::shared_ptr<Task> b) {
         if(a->getPriority() != b->getPriority()){
             return a->getPriority() > b->getPriority();
         }
@@ -88,7 +63,7 @@ void Project::sortTasksAscending() {
 }
 
 template<class Compare>
-void Project::sortTasks(Compare comparator) {
+void Project::sortTasks(const Compare &comparator) {
     std::sort(tasks.begin(), tasks.end(), comparator);
 }
 
@@ -100,6 +75,44 @@ void Project::show() {
 
     std::cout<<"Actors"<<std::endl;
     for (auto& item: actors) {
-        item.show();
+        item->show();
     }
+}
+
+std::vector<std::shared_ptr<Task>> Project::getSimpleTasks() {
+    std::vector<std::shared_ptr<Task>> result;
+
+    for (const auto& task : tasks) {
+        switch (task->getType()) {
+            case TaskType::TTask:
+                result.push_back(task);
+                break;
+            case TaskType::TComplexTask: {
+                auto complexTask = std::dynamic_pointer_cast<ComplexTask>( task);
+                auto subtasks = complexTask->getSubtasks();
+                result.insert(result.end(), subtasks.begin(), subtasks.end());
+                break;
+            }
+            case TaskType::TNone:
+                break;
+            case TaskType::TSubTask:
+                break;
+        }
+    }
+    return result;
+}
+
+template<class Compare>
+void Project::sortActors(const Compare &comparator) {
+    std::sort(actors.begin(), actors.end(), comparator);
+}
+
+void Project::sortActorsDescending() {
+    auto compare = [](const std::shared_ptr<Actor> a, const std::shared_ptr<Actor> b) {
+        if(a->getHours() != b->getHours()){
+            return a->getHours() > b->getHours();
+        }
+        return a->getName() > b->getName();
+    };
+    sortActors(compare);
 }
